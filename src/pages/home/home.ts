@@ -37,7 +37,10 @@ public allMusic:any = [];
           }
         },{
           text:'Share',
-          icon:'share'
+          icon:'share',
+          handler:()=>{
+            this.socialSharing.canShareVia('instagram',music.name,music.image,music.music_url)
+          }
         },
         {
           text:'Cancel',
