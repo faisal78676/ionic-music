@@ -39,7 +39,7 @@ public allMusic:any = [];
           text:'Share',
           icon:'share',
           handler:()=>{
-            this.socialSharing.canShareVia('instagram',music.name,'title',music.image,music.music_url)
+            this.socialSharing.share(music.name,"",music.image,music.music_url)
           }
         },
         {
