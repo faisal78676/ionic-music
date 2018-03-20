@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { NavController, LoadingController, ActionSheetController } from 'ionic-angular';
 import { MusicsProvider } from './../../providers/musics/musics';
 import { SocialSharing } from '@ionic-native/social-sharing';
+import { MusicPlayerPage } from './../music-player/music-player';
 
 @Component({
   selector: 'page-home',
@@ -18,6 +19,7 @@ public allMusic:any = [];
   ) {
     
   }
+  
   public shareSong(music){
     let shareSongActionSheet = this.actionSheet.create({
       title:'Share Song',
@@ -49,6 +51,11 @@ public allMusic:any = [];
       ]
     });
     shareSongActionSheet.present();
+  }
+  public goToMusic(music){
+    this.navCtrl.push(MusicPlayerPage,{
+      music:music
+    });
   }
 ionViewDidLoad(){
   let allMusicLoadingController = this.loadingController.create({
