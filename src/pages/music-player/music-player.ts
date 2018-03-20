@@ -34,22 +34,21 @@ export class MusicPlayerPage {
       this.songMedia.stop();
       this.songMedia.release();
       this.songMedia = null;
-    }
+    }    
   }
   public playMusic(){
     let loadingMusic = this.loading.create({
       content:'Getting Your Songs From Server'
     });
     loadingMusic.present();
+    this.songMedia.onSuccess.subscribe(() =>{ 
+      console.log('Action is successful')
+      
+    });
     this.isMusicPlay = true;
     if(this.songMedia===null){
       this.songMedia = this.media.create(this.music['music_url']);
-      if(this.songMedia.play()){
-        loadingMusic.dismiss();
-      }else{
-        loadingMusic.present();
-      }
-      
+      this.songMedia.play();      
 
     }else{
       if(this.isMusicPaused == true){
@@ -66,4 +65,5 @@ export class MusicPlayerPage {
       this.isMusicPaused = true;      
     }
   }
+
 }
