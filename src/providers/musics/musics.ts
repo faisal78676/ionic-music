@@ -16,7 +16,7 @@ export class MusicsProvider {
   }
 
   getMusic(){
-    return this.http.get(API);
+    return this.http.get<any>(API);
   }
 
 }
