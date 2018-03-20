@@ -45,13 +45,18 @@ export class MusicPlayerPage {
     if(this.songMedia===null){
       this.songMedia = this.media.create(this.music['music_url']);
       this.songMedia.play();
+      this.songMedia.onSuccess.subscribe(() =>{ 
+        console.log('Action is successful')
+        loadingMusic.dismiss();
+      });
+
     }else{
       if(this.isMusicPaused == true){
         this.songMedia.play();
         this.isMusicPaused = false;
       }
     }
-    loadingMusic.present();
+    
   }
   public pauseMusic(){
     this.isMusicPlay = false;
