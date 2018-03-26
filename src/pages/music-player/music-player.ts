@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams,LoadingController } from 'ionic-angular';
+import { IonicPage, NavController, NavParams,LoadingController,Platform } from 'ionic-angular';
 import { Media, MediaObject } from '@ionic-native/media';
 
 /**
@@ -15,6 +15,7 @@ import { Media, MediaObject } from '@ionic-native/media';
   templateUrl: 'music-player.html',
 })
 export class MusicPlayerPage {
+  
   this: any;
   public music = {};
   public songMedia:MediaObject = null;
@@ -22,6 +23,7 @@ export class MusicPlayerPage {
   public isMusicPlay = false;
   constructor(
     private media:Media,private loading: LoadingController,
+    private platform: Platform,
     public navCtrl: NavController, public navParams: NavParams) {
       this.music = this.navParams.get("music");
   }
@@ -37,19 +39,17 @@ export class MusicPlayerPage {
     }    
   }
   public playMusic(){
-    let loadingMusic = this.loading.create({
-      content:'Getting Your Songs From Server'
-    });
-    loadingMusic.present();
-    this.songMedia.onSuccess.subscribe(() =>{ 
-      console.log('Action is successful')
-      
-    });
     this.isMusicPlay = true;
     if(this.songMedia===null){
-      this.songMedia = this.media.create(this.music['music_url']);
+      this.platform.ready().then(() => {
+        //code here such that:
+        this.songMedia = this.media.create(this.music['music_url']);
+      });
+      
       this.songMedia.play();      
-
+      this.songMedia.onSuccess.subscribe(() =>{ 
+        console.log('Action is successful')        
+      });
     }else{
       if(this.isMusicPaused == true){
         this.songMedia.play();
